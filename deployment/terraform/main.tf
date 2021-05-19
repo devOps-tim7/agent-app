@@ -20,6 +20,18 @@ variable "token_secret" {
   description = "Secret needed for JWT"
 }
 
+variable "cloud_name" {
+  description = "Cloudinary name"
+}
+
+variable "cloud_api_key" {
+  description = "Cloudinary api key"
+}
+
+variable "cloud_api_secret" {
+  description = "Cloudinary api secret"
+}
+
 ## PRODUCTS
 resource "heroku_app" "tim7-products" {
   name = "${var.stage}-tim7-products"
@@ -28,6 +40,9 @@ resource "heroku_app" "tim7-products" {
 
   config_vars = {
     TOKEN_SECRET = var.token_secret
+    CLOUD_NAME = var.cloud_name
+    CLOUD_API_KEY = var.cloud_api_key
+    CLOUD_API_SECRET = var.cloud_api_secret
     IMAGE_DIR = "/var/tmp"
   }
 }
@@ -51,7 +66,7 @@ resource "heroku_app" "tim7-purchases" {
   region = "eu"
 }
 
-resource "heroku_addon_attachment" "postgres" {
+resource "heroku_addon_attachment" "postgres-purchases" {
   app_id  = heroku_app.tim7-purchases.id
   addon_id = heroku_addon.postgres.id
 }
@@ -60,6 +75,25 @@ resource "heroku_build" "tim7-purchases-build" {
   app = heroku_app.tim7-purchases.id
   source {
     path = "purchases"
+  }
+}
+
+## REPORTS
+resource "heroku_app" "tim7-reports" {
+  name = "${var.stage}-tim7-reports"
+  stack = "container"
+  region = "eu"
+}
+
+resource "heroku_addon_attachment" "postgres-reports" {
+  app_id  = heroku_app.tim7-reports.id
+  addon_id = heroku_addon.postgres.id
+}
+
+resource "heroku_build" "tim7-reports-build" {
+  app = heroku_app.tim7-reports.id
+  source {
+    path = "reports"
   }
 }
 

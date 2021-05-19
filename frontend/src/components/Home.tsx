@@ -31,11 +31,7 @@ const Home = () => {
           <Grid item key={product.id} xs={12} md={4}>
             <Card onClick={() => handleClick(product.id)}>
               <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image={`/api/product/${product.id}/image`}
-                  title={product.name}
-                />
+                <CardMedia className={classes.media} image={product.image} title={product.name} />
                 <CardContent>
                   <Typography gutterBottom variant='h5' component='h2'>
                     {product.name}

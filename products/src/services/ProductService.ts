@@ -64,10 +64,14 @@ const remove = async (product: Product) => {
   await Product.remove(product);
 };
 
+const updateImage = async (productId: number, image_url) => {
+  await Product.update(productId, { image: image_url });
+};
 export default {
   create,
   getAll,
   getById,
   update,
   remove,
+  updateImage,
 };
