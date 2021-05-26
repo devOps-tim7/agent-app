@@ -5,7 +5,6 @@ import ProductRoute from './src/routes/Products';
 
 export const createServer = () => {
   const app = express();
-  app.use(express);
   app.use(express.json({ limit: '8mb' }));
   app.use('/api/product', ProductRoute);
   app.use(errorHandler);
