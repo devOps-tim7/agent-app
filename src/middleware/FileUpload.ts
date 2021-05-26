@@ -22,4 +22,7 @@ export const upload = multer({
       ['image/png', 'image/jpg', 'image/jpeg'].includes(file.mimetype)
     );
   },
+  limits: {
+    fileSize: 8000000,
+  },
 });
