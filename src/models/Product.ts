@@ -1,11 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Product extends BaseEntity {
+export default class Product extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   @Column()
@@ -14,24 +14,24 @@ export class Product extends BaseEntity {
   @Column()
   image: string;
 
-  @Column("double")
+  @Column('double precision')
   price: number;
 
-  @Column("integer")
+  @Column('integer')
   inStock: number;
 
-  constructor(
-    name: string,
-    description: string,
-    image: string,
-    price: number,
-    inStock: number
-  ) {
+  constructor(product?: {
+    name: string;
+    description: string;
+    image: string;
+    price: number;
+    inStock: number;
+  }) {
     super();
-    this.name = name;
-    this.description = description;
-    this.image = image;
-    this.price = price;
-    this.inStock = inStock;
+    this.name = product?.name;
+    this.description = product?.description;
+    this.image = product?.image;
+    this.price = product?.price;
+    this.inStock = product?.inStock;
   }
 }
