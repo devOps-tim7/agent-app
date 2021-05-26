@@ -46,6 +46,7 @@ jobs:
           DATABASE_HOST: postgres
           DATABASE_PORT: 5432
           DATABASE: postgres
+          IMAGE_DIR: /var/tmp
 
   sonarcloud:
     runs-on: ubuntu-latest
