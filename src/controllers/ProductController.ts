@@ -2,16 +2,40 @@ import { Request, Response } from 'express';
 import Product from '../models/Product';
 import ProductService from '../services/ProductService';
 import ProductNotFoundException from '../exceptions/ProductNotFoundException';
+import ProductDTO from '../dto/ProductDTO';
+import { validate } from 'class-validator';
+import ProductDtoValidationException from '../exceptions/ProductDtoValidationException';
+import PropertyError from '../exceptions/PropertyError';
 
 const create = async (req: Request, res: Response) => {
   //TODO: Add DTO Validation
+
+  const productDTO: ProductDTO = new ProductDTO({
+    ...req.body,
+    image: req.file.filename,
+  });
+  const validationResult = await validate(productDTO, { groups: ['create'] });
+  if (validationResult.length) {
+    const errors = validationResult.map(
+      (result) =>
+        new PropertyError(
+          result.property,
+          Object.keys(result.constraints)
+            .map((key) => result.constraints?.[key])
+            .join(', ')
+        )
+    );
+    throw new ProductDtoValidationException(errors);
+  }
+
   const product: Product = await ProductService.create(
-    req.body.name,
-    req.body.description,
-    req.file.filename,
-    +req.body.price,
-    +req.body.inStock
+    productDTO.name,
+    productDTO.description,
+    productDTO.image,
+    productDTO.price,
+    productDTO.inStock
   );
+
   res.status(201).send(product);
 };
 
@@ -30,19 +54,32 @@ const getById = async (req: Request, res: Response) => {
 };
 
 const update = async (req: Request, res: Response) => {
-  //TODO: Add DTO Validation
+  const productDTO: ProductDTO = new ProductDTO({
+    ...req.body,
+  });
+
+  const validationResult = await validate(productDTO, { groups: ['update'] });
   const id: number = +req.params.id;
-  const name: string = req.body.name;
-  const description: string = req.body.description;
-  const price: number = req.body.price;
-  const inStock: number = req.body.inStock;
+
+  if (validationResult.length) {
+    const errors = validationResult.map(
+      (result) =>
+        new PropertyError(
+          result.property,
+          Object.keys(result.constraints)
+            .map((key) => result.constraints?.[key])
+            .join(', ')
+        )
+    );
+    throw new ProductDtoValidationException(errors);
+  }
 
   const updateProduct: Product = new Product({
-    name,
-    description,
+    name: productDTO.name,
+    description: productDTO.description,
     image: undefined,
-    price,
-    inStock,
+    price: productDTO.price,
+    inStock: productDTO.inStock,
   });
   const product: Product = await ProductService.update(id, updateProduct);
   res.status(200).send(product);
