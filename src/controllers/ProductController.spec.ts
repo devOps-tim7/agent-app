@@ -78,7 +78,7 @@ describe('test ProductController', () => {
     expect(response.status).toBe(409);
   });
 
-  it('should successfully update product', async () => {
+  it.only('should successfully update product', async () => {
     const id: number = (await supertest(app).get('/api/product')).body[0].id;
     const update = {
       name: 'newProductName',
@@ -89,6 +89,7 @@ describe('test ProductController', () => {
     const response = await supertest(app)
       .put(`/api/product/${id}`)
       .send(update);
+    console.log(response.body);
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject(update);
   });

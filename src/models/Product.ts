@@ -12,7 +12,7 @@ export default class Product extends BaseEntity {
   description: string;
 
   @Column()
-  image: string;
+  image?: string;
 
   @Column('double precision')
   price: number;
@@ -23,7 +23,7 @@ export default class Product extends BaseEntity {
   constructor(product?: {
     name: string;
     description: string;
-    image: string;
+    image?: string;
     price: number;
     inStock: number;
   }) {
