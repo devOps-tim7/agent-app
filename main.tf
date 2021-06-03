@@ -7,3 +7,21 @@ terraform {
     }
   }
 }
+
+resource "heroku_app" "agent1" {
+  name   = "Agent app"
+  region = "eu"
+  stack  = "container"
+}
+
+resource "heroku_build" "servers1" {
+  app = heroku_app.agent1.id
+
+  source {
+    path = .
+  }
+}
+
+output "agent1_app_url" {
+  value = "https://${heroku_app.agent1.name}.herokuapp.com"
+}
