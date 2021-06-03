@@ -28,7 +28,7 @@ resource "heroku_build" "agent1" {
   app = heroku_app.agent1.id
 
   source {
-    path = "/app/deploy"
+    path = "./app/deploy"
   }
 }
 
