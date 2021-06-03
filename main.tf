@@ -24,8 +24,12 @@ resource "heroku_app" "agent1" {
   stack  = "container"
 }
 
-resource "heroku_build" "servers1" {
+resource "heroku_build" "agent1" {
   app = heroku_app.agent1.id
+
+  source {
+    path = "."
+  }
 }
 
 output "agent1_app_url" {
