@@ -19,7 +19,7 @@ provider "heroku" {
 }
 
 resource "heroku_app" "agent1" {
-  name   = "agent-app"
+  name   = "tim7devops-agent-app"
   region = "eu"
   stack  = "container"
 }
