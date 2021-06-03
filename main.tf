@@ -1,6 +1,6 @@
 terraform {
-  required_version= "~> 11.0.0"
-  
+  required_version= "~> 0.11.0"
+
   backend "remote" {
     organization = "devOps-tim7"
 
