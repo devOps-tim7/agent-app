@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - mm-cd-pipeline--14
+      - 'mm-cd-pipeline--14
 
 jobs:
   terraform:
@@ -26,6 +26,6 @@ jobs:
         run: terraform init
 
       - name: Terraform Apply
+        run: terraform apply -auto-approve
         with:
           path: ./deployment
-        run: terraform apply -auto-approve
