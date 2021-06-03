@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - 'mm-cd-pipeline--14
+      - mm-cd-pipeline--14
 
 jobs:
   terraform:
