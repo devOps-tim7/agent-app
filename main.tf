@@ -9,10 +9,10 @@ terraform {
 
   required_providers {
     heroku = {
-      source = "heroku/heroku"
+      source  = "heroku/heroku"
+      version = "~> 4.0"
     }
   }
-  required_version = ">= 0.13"
 }
 
 provider "heroku" {
