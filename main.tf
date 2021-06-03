@@ -19,7 +19,7 @@ provider "heroku" {
 }
 
 resource "heroku_app" "agent1" {
-  name   = "Agent app"
+  name   = "agent-app"
   region = "eu"
   stack  = "container"
 }
