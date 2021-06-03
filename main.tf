@@ -8,6 +8,9 @@ terraform {
   }
 }
 
+provider "heroku" {
+}
+
 resource "heroku_app" "agent1" {
   name   = "Agent app"
   region = "eu"
