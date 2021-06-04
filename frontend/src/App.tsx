@@ -13,6 +13,10 @@ const App = () => {
             <Link style={{ color: 'white', textDecoration: 'none' }} to='/'>
               Web shop
             </Link>
+            {/* check if admin */}
+            <Link style={{ color: 'white', textDecoration: 'none', marginLeft: 16 }} to='/products'>
+              Products
+            </Link>
           </Typography>
           <Button color='inherit'>Login</Button>
         </Toolbar>
