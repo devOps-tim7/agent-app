@@ -3,7 +3,16 @@ import ProductDetails from './components/product/ProductDetails';
 import Products from './components/product/Products';
 import { AppBar, Toolbar, Typography, Button, CssBaseline } from '@material-ui/core';
 import Home from './components/Home';
+import Login from './components/Login';
+import { useEffect, useState } from 'react';
+
 const App = () => {
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    setToken(localStorage.getItem('token') || '');
+  }, []);
+
   return (
     <div>
       <CssBaseline />
@@ -13,17 +22,25 @@ const App = () => {
             <Link style={{ color: 'white', textDecoration: 'none' }} to='/'>
               Web shop
             </Link>
-            {/* check if admin */}
-            <Link style={{ color: 'white', textDecoration: 'none', marginLeft: 16 }} to='/products'>
-              Products
-            </Link>
+            {token && (
+              <Link
+                style={{ color: 'white', textDecoration: 'none', marginLeft: 16 }}
+                to='/products'>
+                Products
+              </Link>
+            )}
           </Typography>
-          <Button color='inherit'>Login</Button>
+          <Button color='inherit' component={Link} to='/login'>
+            {token ? 'Logout' : 'Login'}
+          </Button>
         </Toolbar>
       </AppBar>
       <Switch>
         <Route exact path='/'>
           <Home />
+        </Route>
+        <Route exact path='/login'>
+          <Login setToken={setToken} />
         </Route>
         <Route exact path='/products'>
           <Products />

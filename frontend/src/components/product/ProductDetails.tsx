@@ -1,11 +1,12 @@
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { TextField, Button, Grid, Container, Typography } from '@material-ui/core';
 import { isNew, useProducts } from '../../hooks/useProducts';
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
+  const history = useHistory();
 
   const { single: product, setSingle: setProduct, create, edit } = useProducts(id);
 
@@ -32,6 +33,7 @@ const ProductDetails = () => {
       formData.append(key, product[key]);
     });
     await create(formData);
+    history.push('/products');
   };
 
   const handleEdit = async (e: SyntheticEvent) => {

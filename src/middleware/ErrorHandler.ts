@@ -8,7 +8,7 @@ function errorMiddleware(
   _next: NextFunction
 ) {
   const status = ex.status || 500;
-  const errors = ex.errors.length
+  const errors = ex.errors?.length
     ? ex.errors.map((error) => ({ [error.property]: error.value }))
     : [{ default: 'Something went wrong' }];
   response.status(status).send({

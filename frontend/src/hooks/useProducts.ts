@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { authHeader } from '../helper/auth';
 
 const initialState = {
   name: '',
@@ -24,27 +25,27 @@ export const useProducts = (id?: string) => {
 
   const getSingle = async (id: string) => {
     if (!isNew(id)) {
-      const response = await axios.get(`http://localhost:8080/api/product/${id}`);
+      const response = await axios.get(`http://localhost:8080/api/product/${id}`, authHeader);
       setSingle({ ...response.data });
     }
   };
 
   const getData = async () => {
-    const response = await axios.get('http://localhost:8080/api/product');
+    const response = await axios.get('http://localhost:8080/api/product', authHeader);
     setData(response.data);
   };
 
   const destroy = async (id: string) => {
-    await axios.delete(`http://localhost:8080/api/product/${id}`);
+    await axios.delete(`http://localhost:8080/api/product/${id}`, authHeader);
     getData();
   };
 
   const create = async (formData: FormData) => {
-    await axios.post('http://localhost:8080/api/product', formData);
+    await axios.post('http://localhost:8080/api/product', formData, authHeader);
   };
 
   const edit = async () => {
-    axios.put(`http://localhost:8080/api/product/${id}`, { ...single });
+    axios.put(`http://localhost:8080/api/product/${id}`, { ...single }, authHeader);
   };
 
   useEffect(() => {
