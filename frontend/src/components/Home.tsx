@@ -18,7 +18,9 @@ const Home = () => {
 
   const handleClick = (id: number) => {
     // if admin
-    history.push(`/products/${id}`);
+    if (localStorage.getItem('token')) {
+      history.push(`/products/${id}`);
+    }
     // else: go to purchase page (not implemented yet)
   };
 

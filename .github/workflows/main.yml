@@ -47,6 +47,7 @@ jobs:
           DATABASE_PORT: 5432
           DATABASE: postgres
           IMAGE_DIR: /var/tmp
+          TOKEN_SECRET: 'glad you could bake it, uther'
 
   sonarcloud:
     runs-on: ubuntu-latest
