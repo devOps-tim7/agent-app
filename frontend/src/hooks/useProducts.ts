@@ -41,6 +41,7 @@ export const useProducts = (id?: string) => {
   };
 
   const create = async (formData: FormData) => {
+    console.log(authHeader);
     await axios.post('http://localhost:8080/api/product', formData, authHeader);
   };
 
