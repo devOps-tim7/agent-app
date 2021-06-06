@@ -5,10 +5,11 @@ import { AppBar, Toolbar, Typography, Button, CssBaseline } from '@material-ui/c
 import Home from './components/Home';
 import Login from './components/Login';
 import { useEffect, useState } from 'react';
+import Purchase from './components/purchase/Purchase';
+import Thankyou from './components/purchase/Thankyou';
 
 const App = () => {
   const [token, setToken] = useState('');
-
   useEffect(() => {
     setToken(localStorage.getItem('token') || '');
   }, []);
@@ -47,6 +48,12 @@ const App = () => {
         </Route>
         <Route path='/products/:id'>
           <ProductDetails />
+        </Route>
+        <Route path='/purchase/:id'>
+          <Purchase />
+        </Route>
+        <Route path='/thankyou'>
+          <Thankyou />
         </Route>
       </Switch>
     </div>

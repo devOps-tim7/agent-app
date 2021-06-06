@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import Purchase from './Purchase';
 
 @Entity()
 export default class Product extends BaseEntity {
@@ -19,6 +20,11 @@ export default class Product extends BaseEntity {
 
   @Column('integer')
   inStock: number;
+
+  @OneToMany(() => Purchase, (purchase) => purchase.product, {
+    cascade: true,
+  })
+  purchases: Purchase[];
 
   constructor(product?: {
     name: string;

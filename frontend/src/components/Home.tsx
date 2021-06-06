@@ -17,11 +17,11 @@ const Home = () => {
   const classes = useStyles();
 
   const handleClick = (id: number) => {
-    // if admin
     if (localStorage.getItem('token')) {
       history.push(`/products/${id}`);
+    } else {
+      history.push(`/purchase/${id}`);
     }
-    // else: go to purchase page (not implemented yet)
   };
 
   return (

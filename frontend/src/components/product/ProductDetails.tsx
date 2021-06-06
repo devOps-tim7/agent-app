@@ -38,7 +38,10 @@ const ProductDetails = () => {
 
   const handleEdit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    await edit();
+    try {
+      await edit();
+      alert('Edit successful');
+    } catch (error) {}
   };
 
   const handleEditImage = async (e: SyntheticEvent) => {
