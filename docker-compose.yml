@@ -11,6 +11,7 @@ services:
       - agent-db:/var/lib/postgresql/data
 
   agent:
+    image: marko131/devops:latest
     build:
       context: .
     environment:
