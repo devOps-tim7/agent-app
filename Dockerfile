@@ -3,10 +3,11 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 COPY . .
+
 WORKDIR ./frontend
-run npm run build
-WORKDIR /usr/src/app
-COPY ./frontend/build ./build
+RUN npm install
+RUN npm run build
+
 ARG DB
 ENV DATABASE_URL: ${DB}
 ENV DATABASE_TYPE: postgres

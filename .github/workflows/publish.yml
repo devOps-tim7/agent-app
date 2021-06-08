@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dockerhubtest
+      - development
 
 jobs:
   push_to_registry:
