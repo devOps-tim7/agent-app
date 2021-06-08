@@ -8,6 +8,7 @@ import PurchaseRoute from './src/routes/Purchase';
 
 export const createServer = () => {
   const app = express();
+  app.use(express.static('../frontend/build'));
   app.use(express.json({ limit: '8mb' }));
   app.use(cors());
   app.use('/api/product', ProductRoute);

@@ -11,7 +11,9 @@ createConnection().then(async () => {
     await UserService.create('admin', 'admin');
   }
 
-  app.listen(8080, () => {
-    console.log('Server has started at http://localhost:8080');
+  const port = process.env.PORT || 8080;
+
+  app.listen(port, () => {
+    console.log(`Server has started at http://localhost:${port}`);
   });
 });
