@@ -34,10 +34,29 @@ jobs:
         with:
           node-version: '15'
 
-      - name: Install dependencies
+      - name: Install dependencies (products)
+        working-directory: ./products
         run: npm ci
 
-      - name: Run tests
+      - name: Run tests (products)
+        working-directory: ./products
+        run: npm test
+        env:
+          DATABASE_TYPE: postgres
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: root
+          DATABASE_HOST: postgres
+          DATABASE_PORT: 5432
+          DATABASE: postgres
+          IMAGE_DIR: /var/tmp
+          TOKEN_SECRET: 'glad you could bake it, uther'
+
+      - name: Install dependencies (purchases)
+        working-directory: ./purchases
+        run: npm ci
+
+      - name: Run tests (purchases)
+        working-directory: ./purchases
         run: npm test
         env:
           DATABASE_TYPE: postgres

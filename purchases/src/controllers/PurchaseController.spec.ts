@@ -34,7 +34,7 @@ describe('test PurchaseController', () => {
   });
 
   it('should return 409 for quantity greather than inStock', async () => {
-    const id: number = (await supertest(app).get('/api/product')).body[0].id;
+    const id: number = (await Product.findOne()).id;
     const response = await supertest(app)
       .post('/api/purchase')
       .send({ items: [{ id, quantity: 21 }] });
@@ -42,7 +42,7 @@ describe('test PurchaseController', () => {
   });
 
   it('successfully purchase multiple products', async () => {
-    const ids: number = (await supertest(app).get('/api/product')).body.map((item) => item.id);
+    const ids: number[] = (await Product.find()).map((item) => item.id);
     const response = await supertest(app)
       .post('/api/purchase')
       .send({
