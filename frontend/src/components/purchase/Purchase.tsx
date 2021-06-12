@@ -23,7 +23,7 @@ const Purchase = () => {
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    await axios.post('http://localhost:8081/api/purchase', {
+    await axios.post('/api/purchase', {
       name: purchase.name,
       address: purchase.address,
       phone: purchase.phone,

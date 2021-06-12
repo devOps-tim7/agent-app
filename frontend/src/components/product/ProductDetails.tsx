@@ -116,11 +116,7 @@ const ProductDetails = () => {
         <Grid item xs={12} md={6}>
           {!newProduct && (
             <form onSubmit={handleEditImage}>
-              <img
-                src={`http://localhost:8080/api/product/${id}/image`}
-                width={250}
-                alt='Product'
-              />
+              <img src={`/api/product/${id}/image`} width={250} alt='Product' />
               <TextField
                 margin='normal'
                 label='Image'
