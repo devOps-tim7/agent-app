@@ -23,7 +23,7 @@ const Purchase = () => {
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    await axios.post('http://localhost:8080/api/purchase', {
+    await axios.post('http://localhost:8081/api/purchase', {
       name: purchase.name,
       address: purchase.address,
       phone: purchase.phone,
@@ -49,7 +49,11 @@ const Purchase = () => {
           <form onSubmit={handleSubmit}>
             <Typography
               variant='h6'
-              style={{ borderBottom: '1px solid black', marginTop: 16, textAlign: 'left' }}>
+              style={{
+                borderBottom: '1px solid black',
+                marginTop: 16,
+                textAlign: 'left',
+              }}>
               Purchase data:
             </Typography>
             <TextField
@@ -60,7 +64,7 @@ const Purchase = () => {
               type='number'
               onChange={handleChange('quantity')}
               inputProps={{
-                min: 0,
+                min: 1,
                 max: product.inStock,
               }}
               required
@@ -70,7 +74,11 @@ const Purchase = () => {
             }$`}</Typography>
             <Typography
               variant='h6'
-              style={{ borderBottom: '1px solid black', marginTop: 16, textAlign: 'left' }}>
+              style={{
+                borderBottom: '1px solid black',
+                marginTop: 16,
+                textAlign: 'left',
+              }}>
               Buyer data:
             </Typography>
             <TextField

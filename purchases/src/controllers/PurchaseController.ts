@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import ProductNotFoundException from '../exceptions/ProductNotFoundException';
+import PropertyError from '../exceptions/PropertyError';
 import PurchaseQuantityException from '../exceptions/PurchaseQuantityException';
 import ProductService from '../services/ProductService';
 import PurchaseService from '../services/PurchaseService';
@@ -15,6 +16,9 @@ const create = async (req: Request, res: Response) => {
       }
       if (product.inStock < quantity) {
         throw new PurchaseQuantityException(id, product.inStock, quantity);
+      }
+      if (quantity < 1) {
+        throw new PropertyError('quantity', 'Quantity cannot be lower than 1');
       }
     })
   );
