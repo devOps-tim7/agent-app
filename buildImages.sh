@@ -1,4 +1,4 @@
-#! bin/bash
+#! bin/sh
 
 VERSION=${1}
 DOCKERHUB_USERNAME=${2}
