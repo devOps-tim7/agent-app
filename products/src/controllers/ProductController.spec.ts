@@ -53,7 +53,7 @@ describe('test ProductController', () => {
 
     it('should successfully create product', async () => {
       const data = {
-        name: 'testName2',
+        name: 'testName5',
         description: 'testDescription',
         price: 100,
         inStock: 100,
