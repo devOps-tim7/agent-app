@@ -1,0 +1,19 @@
+name: Staging
+
+on:
+  workflow_dispatch:
+
+  repository_dispatch:
+    types: [start_staging]
+
+jobs:
+  cd_pipeline_job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: develop
+      - name: Deploy to staging env on Heroku
+        run: |
+          cd deployment || exit
+          ./deploy.sh ${{ github.event.client_payload.message.version }} m.milovanovic@outlook.com ${{secrets.MILAN_HEROKU_API_KEY}} staging-tim7-terraform-backend
