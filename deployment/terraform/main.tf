@@ -51,7 +51,7 @@ resource "heroku_app" "tim7-purchases" {
   region = "eu"
 }
 
-resource "heroku_addon_attachment" "postgres" {
+resource "heroku_addon_attachment" "postgres-purchases" {
   app_id  = heroku_app.tim7-purchases.id
   addon_id = heroku_addon.postgres.id
 }
@@ -70,7 +70,7 @@ resource "heroku_app" "tim7-reports" {
   region = "eu"
 }
 
-resource "heroku_addon_attachment" "postgres" {
+resource "heroku_addon_attachment" "postgres-reports" {
   app_id  = heroku_app.tim7-reports.id
   addon_id = heroku_addon.postgres.id
 }
