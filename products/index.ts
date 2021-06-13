@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-dotenv.config({ path: '../.env' });
+dotenv.config();
 import { createConnection } from 'typeorm';
 import { createServer } from './server';
 import UserService from './src/services/UserService';
