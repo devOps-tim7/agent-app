@@ -7,6 +7,7 @@ import Login from './components/Login';
 import { useEffect, useState } from 'react';
 import Purchase from './components/purchase/Purchase';
 import Thankyou from './components/purchase/Thankyou';
+import Report from './components/report/Report';
 
 const App = () => {
   const [token, setToken] = useState('');
@@ -24,11 +25,18 @@ const App = () => {
               Web shop
             </Link>
             {token && (
-              <Link
-                style={{ color: 'white', textDecoration: 'none', marginLeft: 16 }}
-                to='/products'>
-                Products
-              </Link>
+              <>
+                <Link
+                  style={{ color: 'white', textDecoration: 'none', marginLeft: 16 }}
+                  to='/products'>
+                  Products
+                </Link>
+                <Link
+                  style={{ color: 'white', textDecoration: 'none', marginLeft: 16 }}
+                  to='/reports'>
+                  Reports
+                </Link>
+              </>
             )}
           </Typography>
           <Button color='inherit' component={Link} to='/login'>
@@ -54,6 +62,9 @@ const App = () => {
         </Route>
         <Route path='/thankyou'>
           <Thankyou />
+        </Route>
+        <Route path='/reports'>
+          <Report />
         </Route>
       </Switch>
     </div>

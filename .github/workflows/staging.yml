@@ -3,8 +3,8 @@ name: Staging
 on:
   push:
     branches:
-      - ms-split-services--22
       - development
+      - ms-add-reports--24
 
 jobs:
   pre-staging:

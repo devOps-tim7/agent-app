@@ -8,6 +8,7 @@ NAME=${4:-staging}
 GATEWAY=${DOCKERHUB_USERNAME}/gateway:${VERSION}
 PRODUCTS=${DOCKERHUB_USERNAME}/products:${VERSION}
 PURCHASES=${DOCKERHUB_USERNAME}/purchases:${VERSION}
+REPORTS=${DOCKERHUB_USERNAME}/reports:${VERSION}
 
 DOCKER_BUILDKIT=1 docker build -t ${GATEWAY} --no-cache -f ./gateway/Dockerfile .
 

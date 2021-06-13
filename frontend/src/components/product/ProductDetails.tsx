@@ -103,6 +103,7 @@ const ProductDetails = () => {
                 inputProps={{
                   accept: 'image/*',
                 }}
+                required={true}
                 onChange={handleFileChange}
               />
             )}
