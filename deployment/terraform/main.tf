@@ -16,11 +16,19 @@ variable "stage" {
   description = "Stage of the app (staging or production)"
 }
 
+variable "token_secret" {
+  description = "Secret needed for JWT"
+}
+
 ## PRODUCTS
 resource "heroku_app" "tim7-products" {
   name = "${var.stage}-tim7-products"
   stack = "container"
   region = "eu"
+
+  config_vars = {
+    TOKEN_SECRET = var.token_secret
+  }
 }
 
 resource "heroku_addon" "postgres" {
