@@ -1,4 +1,4 @@
-name: Publish docker images (pre-staging)
+name: Publish Docker images and deploy to staging
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   pre-staging:
-    name: Push Docker image to Docker Hub
+    name: Publish Docker images and deploy to staging
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
