@@ -28,6 +28,7 @@ resource "heroku_app" "tim7-products" {
 
   config_vars = {
     TOKEN_SECRET = var.token_secret
+    IMAGE_DIR = "/var/tmp"
   }
 }
 
