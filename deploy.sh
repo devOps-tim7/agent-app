@@ -12,6 +12,7 @@ CONTAINER_NAME=${8:-terraform-deploy}
 GATEWAY_IMAGE=${DOCKERHUB_USERNAME}/gateway:${VERSION}
 PRODUCTS_IMAGE=${DOCKERHUB_USERNAME}/products:${VERSION}
 PURCHASES_IMAGE=${DOCKERHUB_USERNAME}/purchases:${VERSION}
+REPORTS_IMAGE=${DOCKERHUB_USERNAME}/reports:${VERSION}
 
 docker create \
   --workdir /deployment \
@@ -24,6 +25,7 @@ docker create \
   --env GATEWAY_IMAGE="${GATEWAY_IMAGE}" \
   --env PRODUCTS_IMAGE="${PRODUCTS_IMAGE}" \
   --env PURCHASES_IMAGE="${PURCHASES_IMAGE}" \
+  --env REPORTS_IMAGE="${REPORTS_IMAGE}" \
   --name "$CONTAINER_NAME" \
   danijelradakovic/heroku-terraform \
   deploy.sh

@@ -63,6 +63,25 @@ resource "heroku_build" "tim7-purchases-build" {
   }
 }
 
+## REPORTS
+resource "heroku_app" "tim7-reports" {
+  name = "${var.stage}-tim7-reports"
+  stack = "container"
+  region = "eu"
+}
+
+resource "heroku_addon_attachment" "postgres" {
+  app_id  = heroku_app.tim7-reports.id
+  addon_id = heroku_addon.postgres.id
+}
+
+resource "heroku_build" "tim7-reports-build" {
+  app = heroku_app.tim7-reports.id
+  source {
+    path = "reports"
+  }
+}
+
 ## NGINX GATEWAY
 resource "heroku_app" "tim7-gateway" {
   name = "${var.stage}-tim7-gateway"

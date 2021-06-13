@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - development
+      - ms-add-reports--24
 
 jobs:
   pre-staging:
