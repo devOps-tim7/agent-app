@@ -33,7 +33,7 @@ const Home = () => {
               <CardActionArea>
                 <CardMedia
                   className={classes.media}
-                  image={`http://localhost:8080/api/product/${product.id}/image`}
+                  image={`/api/product/${product.id}/image`}
                   title={product.name}
                 />
                 <CardContent>
