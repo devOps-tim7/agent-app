@@ -36,10 +36,6 @@ jobs:
       - name: Build docker image
         run: ./buildImages.sh ${{ steps.tag_version.outputs.new_tag }} ${{ secrets.MILAN_DOCKERHUB_USERNAME }} ${{ secrets.MILAN_DOCKERHUB_PASSWORD }}
 
-  staging:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
       - name: Deploy to staging env on Heroku
         run: |
           cd deployment || exit
