@@ -8,13 +8,13 @@ const app = createServer();
 describe('test AuthController', () => {
   beforeEach(async () => {
     await connection.clear();
-    await UserService.create('admin', 'admin');
+    await UserService.create('admin2', 'admin2');
   });
 
   it('successfully logs in', async () => {
     const response = await supertest(app).post('/api/auth/login').send({
-      username: 'admin',
-      password: 'admin',
+      username: 'admin2',
+      password: 'admin2',
     });
     expect(response.status).toBe(200);
   });

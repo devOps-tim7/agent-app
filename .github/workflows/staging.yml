@@ -37,4 +37,4 @@ jobs:
         run: ./buildImages.sh ${{ steps.tag_version.outputs.new_tag }} ${{ secrets.MILAN_DOCKERHUB_USERNAME }} ${{ secrets.MILAN_DOCKERHUB_PASSWORD }}
 
       - name: Deploy to staging env on Heroku
-        run: ./deploy.sh ${{ steps.tag_version.outputs.new_tag }} m.milovanovic@outlook.com ${{secrets.MILAN_HEROKU_API_KEY}} staging-tim7-terraform-backend ${{secrets.TOKEN_SECRET}}
+        run: ./deploy.sh ${{ steps.tag_version.outputs.new_tag }} m.milovanovic@outlook.com ${{secrets.MILAN_HEROKU_API_KEY}} staging-tim7-terraform-backend "${{secrets.TOKEN_SECRET}}"
