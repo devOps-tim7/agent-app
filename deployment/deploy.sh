@@ -11,9 +11,9 @@ case $ALL_HEROKU_APPS in (*"$TERRAFORM_PG_BACKEND"*)
    ;;
 esac
 
-rm -rf ./gateway/Dockerfile
-rm -rf ./products/Dockerfile
-rm -rf ./purchases/Dockerfile
+rm -rf ./terraform/gateway/Dockerfile
+rm -rf ./terraform/products/Dockerfile
+rm -rf ./terraform/purchases/Dockerfile
 
 echo "FROM $GATEWAY_IMAGE" >> ./gateway/Dockerfile
 cat ./gateway/Dockerfile
