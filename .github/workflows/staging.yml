@@ -1,4 +1,4 @@
-name: Publish Docker images and deploy to staging
+name: Staging
 
 on:
   push:
@@ -37,6 +37,4 @@ jobs:
         run: ./buildImages.sh ${{ steps.tag_version.outputs.new_tag }} ${{ secrets.MILAN_DOCKERHUB_USERNAME }} ${{ secrets.MILAN_DOCKERHUB_PASSWORD }}
 
       - name: Deploy to staging env on Heroku
-        run: |
-          cd deployment || exit
-          ./deploy.sh ${{ github.event.client_payload.message.version }} m.milovanovic@outlook.com ${{secrets.MILAN_HEROKU_API_KEY}} staging-tim7-terraform-backend
+        run: ./deploy.sh ${{ github.event.client_payload.message.version }} m.milovanovic@outlook.com ${{secrets.MILAN_HEROKU_API_KEY}} staging-tim7-terraform-backend
