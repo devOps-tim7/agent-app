@@ -12,6 +12,10 @@ terraform {
 
 provider "heroku" {}
 
+variable "stage" {
+  description = "Stage of the app (staging or production)"
+}
+
 ## PRODUCTS
 resource "heroku_app" "tim7-products" {
   name = var.stage + "-tim7-products"
