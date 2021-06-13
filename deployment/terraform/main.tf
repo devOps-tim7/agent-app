@@ -18,7 +18,7 @@ variable "stage" {
 
 ## PRODUCTS
 resource "heroku_app" "tim7-products" {
-  name = var.stage + "-tim7-products"
+  name = "${var.stage}-tim7-products"
   stack = "container"
   region = "eu"
 }
@@ -37,7 +37,7 @@ resource "heroku_build" "tim7-products-build" {
 
 ## PURCHASES
 resource "heroku_app" "tim7-purchases" {
-  name = var.stage + "-tim7-purchases"
+  name = "${var.stage}-tim7-purchases"
   stack = "container"
   region = "eu"
 }
@@ -56,7 +56,7 @@ resource "heroku_build" "tim7-purchases-build" {
 
 ## NGINX GATEWAY
 resource "heroku_app" "tim7-gateway" {
-  name = var.stage + "-tim7-gateway"
+  name = "${var.stage}-tim7-gateway"
   stack = "container"
   region = "eu"
 
