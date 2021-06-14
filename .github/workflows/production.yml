@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - mm-prod-cd--26
 
 jobs:
   pre-staging:
