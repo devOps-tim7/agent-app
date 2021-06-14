@@ -16,15 +16,19 @@ cd terraform || exit
 rm -rf ./gateway/Dockerfile
 rm -rf ./products/Dockerfile
 rm -rf ./purchases/Dockerfile
+rm -rf ./reports/Dockerfile
 
 echo "FROM $GATEWAY_IMAGE" >> ./gateway/Dockerfile
 cat ./gateway/Dockerfile
 
 echo "FROM $PRODUCTS_IMAGE" >> ./products/Dockerfile
-cat ./gateway/Dockerfile
+cat ./products/Dockerfile
 
 echo "FROM $PURCHASES_IMAGE" >> ./purchases/Dockerfile
-cat ./gateway/Dockerfile
+cat ./purchases/Dockerfile
+
+echo "FROM $REPORTS_IMAGE" >> ./reports/Dockerfile
+cat ./reports/Dockerfile
 
 DATABASE_URL=$(heroku config:get DATABASE_URL --app "$TERRAFORM_PG_BACKEND") && export DATABASE_URL
 terraform init -backend-config="conn_str=$DATABASE_URL"

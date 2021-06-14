@@ -51,7 +51,7 @@ resource "heroku_app" "tim7-purchases" {
   region = "eu"
 }
 
-resource "heroku_addon_attachment" "postgres" {
+resource "heroku_addon_attachment" "postgres-purchases" {
   app_id  = heroku_app.tim7-purchases.id
   addon_id = heroku_addon.postgres.id
 }
@@ -60,6 +60,25 @@ resource "heroku_build" "tim7-purchases-build" {
   app = heroku_app.tim7-purchases.id
   source {
     path = "purchases"
+  }
+}
+
+## REPORTS
+resource "heroku_app" "tim7-reports" {
+  name = "${var.stage}-tim7-reports"
+  stack = "container"
+  region = "eu"
+}
+
+resource "heroku_addon_attachment" "postgres-reports" {
+  app_id  = heroku_app.tim7-reports.id
+  addon_id = heroku_addon.postgres.id
+}
+
+resource "heroku_build" "tim7-reports-build" {
+  app = heroku_app.tim7-reports.id
+  source {
+    path = "reports"
   }
 }
 

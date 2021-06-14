@@ -30,6 +30,7 @@ services:
       - postgres
       - products
       - purchases
+      - reports
       - frontend
     ports:
       - '5000:8080'
@@ -42,7 +43,7 @@ services:
       PORT: 8081
       DATABASE_TYPE: postgres
       DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: root
+      DATABASE_PASSWORD: postgres
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       DATABASE: devops
@@ -57,11 +58,24 @@ services:
       PORT: 8082
       DATABASE_TYPE: postgres
       DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: root
+      DATABASE_PASSWORD: postgres
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       DATABASE: devops
       IMAGE_DIR: /var/tmp
+
+  reports:
+    build:
+      context: ./reports
+      dockerfile: Dockerfile.dev
+    environment:
+      PORT: 8083
+      DATABASE_TYPE: postgres
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE: devops
 
 volumes:
   agent-db:

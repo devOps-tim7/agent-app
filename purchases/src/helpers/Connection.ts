@@ -12,10 +12,12 @@ const connection = {
   async clear() {
     const connection = getConnection();
     const entities = connection.entityMetadatas;
-    entities.forEach(async (entity) => {
-      const repository = connection.getRepository(entity.name);
-      await repository.query(`DELETE FROM ${entity.tableName}`);
-    });
+    return Promise.all(
+      entities.map((entity) => {
+        const repository = connection.getRepository(entity.name);
+        return repository.query(`DELETE FROM ${entity.tableName}`);
+      })
+    );
   },
 };
 export default connection;

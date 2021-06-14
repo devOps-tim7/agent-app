@@ -68,6 +68,23 @@ jobs:
           IMAGE_DIR: /var/tmp
           TOKEN_SECRET: 'glad you could bake it, uther'
 
+      - name: Install dependencies (reports)
+        working-directory: ./reports
+        run: npm ci
+
+      - name: Run tests (reports)
+        working-directory: ./reports
+        run: npm test
+        env:
+          DATABASE_TYPE: postgres
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: root
+          DATABASE_HOST: postgres
+          DATABASE_PORT: 5432
+          DATABASE: postgres
+          IMAGE_DIR: /var/tmp
+          TOKEN_SECRET: 'glad you could bake it, uther'
+
   sonarcloud:
     runs-on: ubuntu-latest
     steps:

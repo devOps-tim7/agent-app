@@ -2,15 +2,12 @@ require('express-async-errors');
 import express from 'express';
 import cors from 'cors';
 import errorHandler from './src/middleware/ErrorHandler';
-import ProductRoute from './src/routes/Products';
-import AuthRoute from './src/routes/Auth';
+import ReportRoute from './src/routes/Report';
 
 export const createServer = () => {
   const app = express();
-  app.use(express.json({ limit: '8mb' }));
   app.use(cors());
-  app.use('/api/product', ProductRoute);
-  app.use('/api/auth', AuthRoute);
+  app.use('/api/report', ReportRoute);
   app.use(errorHandler);
   return app;
 };
