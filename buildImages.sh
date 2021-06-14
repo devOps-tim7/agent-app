@@ -18,8 +18,13 @@ DOCKER_BUILDKIT=1 docker build -t ${PRODUCTS} --no-cache .
 cd ../purchases
 DOCKER_BUILDKIT=1 docker build -t ${PURCHASES} --no-cache .
 
+cd ../reports
+DOCKER_BUILDKIT=1 docker build -t ${REPORTS} --no-cache .
+
 
 docker login --username ${DOCKERHUB_USERNAME} --password=${DOCKERHUB_PASSWORD}
 docker push ${GATEWAY}
 docker push ${PRODUCTS}
 docker push ${PURCHASES}
+docker push ${REPORTS}
+
