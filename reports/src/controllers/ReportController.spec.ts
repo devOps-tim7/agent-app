@@ -22,7 +22,7 @@ describe('test ReportsController', () => {
     INSERT INTO purchase VALUES (5, 0, 2300, 15, '2021-06-10 21:50:56.646+02', 1);
     INSERT INTO purchase VALUES (6, 0, 120, 20, '2021-06-10 21:50:56.646+02', 1);
     INSERT INTO purchase VALUES (7, 0, 50, 15, '2021-06-10 21:50:56.646+02', 2);
-    INSERT INTO purchase VALUES (8, 0, 125, 12, '2021-06-10 21:50:56.646+02', 5);
+    INSERT INTO purchase VALUES (8, 0, 125, 13, '2021-06-10 21:50:56.646+02', 5);
     INSERT INTO purchase VALUES (9, 0, 250, 7, '2021-06-10 21:50:56.646+02', 2);
     INSERT INTO purchase VALUES (10, 0, 550, 3, '2021-06-10 21:50:56.646+02', 1);
     `);
