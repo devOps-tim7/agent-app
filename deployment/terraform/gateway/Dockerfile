@@ -1,0 +1,1 @@
+FROM mmilovanovic/gateway

@@ -1,0 +1,67 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - '5432:5432'
+    volumes:
+      - agent-db:/var/lib/postgresql/data
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    environment:
+      CHOKIDAR_USEPOLLING: 'true'
+    volumes:
+      - /usr/src/app/node_modules
+      - ./frontend:/usr/src/app
+
+  gateway:
+    build:
+      context: .
+      dockerfile: ./gateway/Dockerfile.dev
+    environment:
+      PORT: 8080
+    depends_on:
+      - postgres
+      - products
+      - purchases
+      - frontend
+    ports:
+      - '5000:8080'
+
+  products:
+    build:
+      context: ./products
+      dockerfile: Dockerfile.dev
+    environment:
+      PORT: 8081
+      DATABASE_TYPE: postgres
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: root
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE: devops
+      IMAGE_DIR: /var/tmp
+      TOKEN_SECRET: 12345
+
+  purchases:
+    build:
+      context: ./purchases
+      dockerfile: Dockerfile.dev
+    environment:
+      PORT: 8082
+      DATABASE_TYPE: postgres
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: root
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE: devops
+      IMAGE_DIR: /var/tmp
+
+volumes:
+  agent-db:
