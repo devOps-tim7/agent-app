@@ -115,6 +115,21 @@ const downloadImage = async (req: Request, res: Response) => {
   res.download(`${process.env.IMAGE_DIR}/${product.image}`);
 };
 
+const changeImage = async (req: Request, res: Response) => {
+  const id: number = +req.params.id;
+  const image = req.file.filename;
+  let image_url = '';
+  await new Promise<void>((resolve) => {
+    cloudinary.uploader.upload(`${process.env.IMAGE_DIR}/${image}`, function (error, result) {
+      console.log(result, error);
+      image_url = result.secure_url;
+      resolve();
+    });
+  });
+  await ProductService.updateImage(id, image_url);
+  res.status(200).send(image_url);
+};
+
 export default {
   create,
   getAll,
@@ -122,4 +137,5 @@ export default {
   getById,
   remove,
   downloadImage,
+  changeImage,
 };

@@ -36,5 +36,5 @@ terraform apply -auto-approve -var stage=${STAGE} \
                               -var token_secret={$TOKEN_SECRET} \
                               -var cloud_name={$CLOUD_NAME} \
                               -var cloud_api_key={$CLOUD_API_KEY} \
-                              -var clout_api_secret={$CLOUD_API_SECRET}
+                              -var cloud_api_secret={$CLOUD_API_SECRET}
                               
