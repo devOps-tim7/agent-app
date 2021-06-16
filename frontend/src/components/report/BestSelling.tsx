@@ -8,7 +8,7 @@ import {
   Paper,
   Typography,
 } from '@material-ui/core';
-import { Column, useExpanded, useTable } from 'react-table';
+import { Column, useTable } from 'react-table';
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 

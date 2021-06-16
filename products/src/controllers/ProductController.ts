@@ -6,6 +6,7 @@ import ProductDTO from '../dto/ProductDTO';
 import { validate } from 'class-validator';
 import ProductDtoValidationException from '../exceptions/ProductDtoValidationException';
 import PropertyError from '../exceptions/PropertyError';
+var cloudinary = require('cloudinary').v2;
 
 const create = async (req: Request, res: Response) => {
   //TODO: Add DTO Validation
@@ -27,6 +28,16 @@ const create = async (req: Request, res: Response) => {
     );
     throw new ProductDtoValidationException(errors);
   }
+  await new Promise<void>((resolve) => {
+    cloudinary.uploader.upload(
+      `${process.env.IMAGE_DIR}/${productDTO.image}`,
+      function (error, result) {
+        console.log(result, error);
+        productDTO.image = result.secure_url;
+        resolve();
+      }
+    );
+  });
 
   const product: Product = await ProductService.create(
     productDTO.name,
