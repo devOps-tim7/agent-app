@@ -24,7 +24,7 @@ const mostValuable = async (numberOfResults: number) => {
     GROUP BY pr.id 
     ORDER BY sum(total) DESC
     LIMIT $1
-  `,
+    `,
     [limit]
   );
   return result;

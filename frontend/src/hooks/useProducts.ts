@@ -3,7 +3,6 @@ import axios from 'axios';
 import { authHeader } from '../helper/auth';
 
 const productUrl = process.env.REACT_APP_PRODUCTS_URL || '/api/product';
-console.log(productUrl);
 
 const initialState = {
   name: '',
@@ -52,6 +51,12 @@ export const useProducts = (id?: string) => {
     axios.put(`${productUrl}/${id}`, { ...single }, authHeader());
   };
 
+  const changeImage = async (image: File) => {
+    const formData = new FormData();
+    formData.append('image', image);
+    return axios.patch(`${productUrl}/${id}/changeImage`, formData, authHeader());
+  };
+
   useEffect(() => {
     getData();
     if (id && !isNew(id)) {
@@ -66,5 +71,6 @@ export const useProducts = (id?: string) => {
     edit,
     single,
     setSingle,
+    changeImage,
   };
 };

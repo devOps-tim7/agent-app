@@ -11,7 +11,7 @@ router.get('/error', async (_req: Request, _res: Response, _next: NextFunction) 
 });
 
 router.get('/:id/image', ProductController.downloadImage);
-router.patch('/:id/changeImage', ProductController.changeImage);
+router.patch('/:id/changeImage', loggedIn, upload.single('image'), ProductController.changeImage);
 
 router.get('/', ProductController.getAll);
 router.get('/:id', ProductController.getById);

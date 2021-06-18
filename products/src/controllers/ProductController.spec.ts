@@ -2,11 +2,14 @@ import { createServer } from '../../server';
 import supertest from 'supertest';
 import connection from '../helpers/Connection';
 import Product from '../models/Product';
-//import path from 'path';
+import path from 'path';
 import UserService from '../services/UserService';
 import AuthService from '../services/AuthService';
+import UploadService from '../services/UploadService';
 
 const app = createServer();
+
+const spy = jest.spyOn(UploadService, 'uploadToCloudinary').mockResolvedValue('pathToImage1');
 
 describe('test ProductController', () => {
   const product = {
@@ -51,7 +54,6 @@ describe('test ProductController', () => {
       expect(response.status).toBe(404);
     });
 
-    /*
     it('should successfully create product', async () => {
       const data = {
         name: 'testName5',
@@ -67,10 +69,10 @@ describe('test ProductController', () => {
         .field('price', data.price)
         .field('inStock', data.inStock)
         .attach('image', path.resolve(__dirname, '../../resources/random.jpg'));
+      expect(spy).toBeCalled();
       expect(response.status).toBe(201);
       expect(response.body).toMatchObject(data);
     });
-   
 
     it('should return 409 on create product that already exists', async () => {
       const response = await supertest(app)
@@ -81,9 +83,9 @@ describe('test ProductController', () => {
         .field('price', 100)
         .field('inStock', 100)
         .attach('image', path.resolve(__dirname, '../../resources/random.jpg'));
+      expect(spy).toBeCalled();
       expect(response.status).toBe(409);
     });
-     */
 
     it('should successfully update product', async () => {
       const id: number = (

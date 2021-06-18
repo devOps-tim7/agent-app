@@ -6,7 +6,7 @@ import ProductDTO from '../dto/ProductDTO';
 import { validate } from 'class-validator';
 import ProductDtoValidationException from '../exceptions/ProductDtoValidationException';
 import PropertyError from '../exceptions/PropertyError';
-var cloudinary = require('cloudinary').v2;
+import UploadService from '../services/UploadService';
 
 const create = async (req: Request, res: Response) => {
   //TODO: Add DTO Validation
@@ -28,21 +28,14 @@ const create = async (req: Request, res: Response) => {
     );
     throw new ProductDtoValidationException(errors);
   }
-  await new Promise<void>((resolve) => {
-    cloudinary.uploader.upload(
-      `${process.env.IMAGE_DIR}/${productDTO.image}`,
-      function (error, result) {
-        console.log(result, error);
-        productDTO.image = result.secure_url;
-        resolve();
-      }
-    );
-  });
+  const url: string = await UploadService.uploadToCloudinary(
+    `${process.env.IMAGE_DIR}/${productDTO.image}`
+  );
 
   const product: Product = await ProductService.create(
     productDTO.name,
     productDTO.description,
-    productDTO.image,
+    url,
     productDTO.price,
     productDTO.inStock
   );
@@ -118,14 +111,9 @@ const downloadImage = async (req: Request, res: Response) => {
 const changeImage = async (req: Request, res: Response) => {
   const id: number = +req.params.id;
   const image = req.file.filename;
-  let image_url = '';
-  await new Promise<void>((resolve) => {
-    cloudinary.uploader.upload(`${process.env.IMAGE_DIR}/${image}`, function (error, result) {
-      console.log(result, error);
-      image_url = result.secure_url;
-      resolve();
-    });
-  });
+  let image_url: string = await UploadService.uploadToCloudinary(
+    `${process.env.IMAGE_DIR}/${image}`
+  );
   await ProductService.updateImage(id, image_url);
   res.status(200).send(image_url);
 };

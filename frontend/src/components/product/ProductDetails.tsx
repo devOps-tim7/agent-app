@@ -7,8 +7,9 @@ import { isNew, useProducts } from '../../hooks/useProducts';
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
 
-  const { single: product, setSingle: setProduct, create, edit } = useProducts(id);
+  const { single: product, setSingle: setProduct, create, edit, changeImage } = useProducts(id);
 
   const handleChange = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -47,6 +48,15 @@ const ProductDetails = () => {
   const handleEditImage = async (e: SyntheticEvent) => {
     e.preventDefault();
     console.log('peep');
+  };
+
+  const handleChangeImage = async () => {
+    if (file) {
+      setLoading(true);
+      const response = await changeImage(file);
+      setProduct({ ...product, image: response.data });
+      setLoading(false);
+    }
   };
 
   const newProduct = isNew(id);
@@ -117,6 +127,17 @@ const ProductDetails = () => {
         <Grid item xs={12} md={6}>
           {!newProduct && (
             <form onSubmit={handleEditImage}>
+              <div style={{ textAlign: 'center', width: '100%' }}>
+                <Button
+                  type='button'
+                  color='secondary'
+                  variant='contained'
+                  onClick={handleChangeImage}
+                  disabled={loading}>
+                  Change image
+                </Button>
+              </div>
+
               <img src={product.image} width={250} alt='Product' />
               <TextField
                 margin='normal'
