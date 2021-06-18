@@ -35,4 +35,4 @@ jobs:
         run: ./buildImages.sh ${{ steps.tag_version.outputs.new_tag }} ${{ secrets.MILAN_DOCKERHUB_USERNAME }} ${{ secrets.MILAN_DOCKERHUB_PASSWORD }}
 
       - name: Deploy to prod env on Heroku
-        run: ./deploy.sh ${{ steps.tag_version.outputs.new_tag }} markostanic222@gmail.com ${{secrets.MARKO_HEROKU_API_KEY}} prod-tim7-terraform-backend ${{secrets.TOKEN_SECRET}} prod
+        run: ./deploy.sh ${{ steps.tag_version.outputs.new_tag }} markostanic222@gmail.com ${{secrets.MARKO_HEROKU_API_KEY}} prod-tim7-terraform-backend ${{secrets.TOKEN_SECRET}} ${{secrets.CLOUD_NAME}} ${{secrets.CLOUD_API_KEY}} ${{secrets.CLOUD_API_SECRET}} prod
