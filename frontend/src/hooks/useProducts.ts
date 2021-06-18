@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { authHeader } from '../helper/auth';
 
+const productUrl = process.env.REACT_APP_PRODUCTS_URL || '/api/product';
+
 const initialState = {
   name: '',
   description: '',
@@ -15,6 +17,7 @@ export type Product = {
   description: string;
   price: number;
   inStock: number;
+  image: string;
 };
 
 export const isNew = (id: string) => id === 'new';
@@ -25,27 +28,33 @@ export const useProducts = (id?: string) => {
 
   const getSingle = async (id: string) => {
     if (!isNew(id)) {
-      const response = await axios.get(`/api/product/${id}`, authHeader());
+      const response = await axios.get(`${productUrl}/${id}`, authHeader());
       setSingle({ ...response.data });
     }
   };
 
   const getData = async () => {
-    const response = await axios.get(`/api/product`, authHeader());
+    const response = await axios.get(productUrl, authHeader());
     setData(response.data);
   };
 
   const destroy = async (id: string) => {
-    await axios.delete(`/api/product/${id}`, authHeader());
+    await axios.delete(`${productUrl}/${id}`, authHeader());
     getData();
   };
 
   const create = async (formData: FormData) => {
-    await axios.post(`/api/product`, formData, authHeader());
+    await axios.post(`${productUrl}`, formData, authHeader());
   };
 
   const edit = async () => {
-    axios.put(`/api/product/${id}`, { ...single }, authHeader());
+    axios.put(`${productUrl}/${id}`, { ...single }, authHeader());
+  };
+
+  const changeImage = async (image: File) => {
+    const formData = new FormData();
+    formData.append('image', image);
+    return axios.patch(`${productUrl}/${id}/changeImage`, formData, authHeader());
   };
 
   useEffect(() => {
@@ -62,5 +71,6 @@ export const useProducts = (id?: string) => {
     edit,
     single,
     setSingle,
+    changeImage,
   };
 };

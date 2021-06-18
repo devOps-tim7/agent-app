@@ -6,6 +6,7 @@ import ProductDTO from '../dto/ProductDTO';
 import { validate } from 'class-validator';
 import ProductDtoValidationException from '../exceptions/ProductDtoValidationException';
 import PropertyError from '../exceptions/PropertyError';
+import UploadService from '../services/UploadService';
 
 const create = async (req: Request, res: Response) => {
   //TODO: Add DTO Validation
@@ -27,11 +28,14 @@ const create = async (req: Request, res: Response) => {
     );
     throw new ProductDtoValidationException(errors);
   }
+  const url: string = await UploadService.uploadToCloudinary(
+    `${process.env.IMAGE_DIR}/${productDTO.image}`
+  );
 
   const product: Product = await ProductService.create(
     productDTO.name,
     productDTO.description,
-    productDTO.image,
+    url,
     productDTO.price,
     productDTO.inStock
   );
@@ -104,6 +108,16 @@ const downloadImage = async (req: Request, res: Response) => {
   res.download(`${process.env.IMAGE_DIR}/${product.image}`);
 };
 
+const changeImage = async (req: Request, res: Response) => {
+  const id: number = +req.params.id;
+  const image = req.file.filename;
+  let image_url: string = await UploadService.uploadToCloudinary(
+    `${process.env.IMAGE_DIR}/${image}`
+  );
+  await ProductService.updateImage(id, image_url);
+  res.status(200).send(image_url);
+};
+
 export default {
   create,
   getAll,
@@ -111,4 +125,5 @@ export default {
   getById,
   remove,
   downloadImage,
+  changeImage,
 };
