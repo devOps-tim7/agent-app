@@ -20,6 +20,18 @@ variable "token_secret" {
   description = "Secret needed for JWT"
 }
 
+variable "cloud_name" {
+  description = "Cloudinary name"
+}
+
+variable "cloud_api_key" {
+  description = "Cloudinary api key"
+}
+
+variable "cloud_api_secret" {
+  description = "Cloudinary api secret"
+}
+
 ## PRODUCTS
 resource "heroku_app" "tim7-products" {
   name = "${var.stage}-tim7-products"
@@ -28,6 +40,9 @@ resource "heroku_app" "tim7-products" {
 
   config_vars = {
     TOKEN_SECRET = var.token_secret
+    CLOUD_NAME = var.cloud_name
+    CLOUD_API_KEY = var.cloud_api_key
+    CLOUD_API_SECRET = var.cloud_api_secret
     IMAGE_DIR = "/var/tmp"
   }
 }

@@ -29,7 +29,8 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/auth/login', user);
+      const loginUrl = process.env.REACT_APP_AUTH_URL || '/api/auth/login';
+      const response = await axios.post(loginUrl, user);
       setToken(response.data.token);
       localStorage.setItem('token', response.data.token);
       history.push('/products');

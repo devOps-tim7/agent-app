@@ -5,8 +5,11 @@ import Product from '../models/Product';
 import path from 'path';
 import UserService from '../services/UserService';
 import AuthService from '../services/AuthService';
+import UploadService from '../services/UploadService';
 
 const app = createServer();
+
+const spy = jest.spyOn(UploadService, 'uploadToCloudinary').mockResolvedValue('pathToImage1');
 
 describe('test ProductController', () => {
   const product = {
@@ -66,6 +69,7 @@ describe('test ProductController', () => {
         .field('price', data.price)
         .field('inStock', data.inStock)
         .attach('image', path.resolve(__dirname, '../../resources/random.jpg'));
+      expect(spy).toBeCalled();
       expect(response.status).toBe(201);
       expect(response.body).toMatchObject(data);
     });
@@ -79,6 +83,7 @@ describe('test ProductController', () => {
         .field('price', 100)
         .field('inStock', 100)
         .attach('image', path.resolve(__dirname, '../../resources/random.jpg'));
+      expect(spy).toBeCalled();
       expect(response.status).toBe(409);
     });
 
